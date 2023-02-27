@@ -1,0 +1,6 @@
+for recognition:
+    https://github.com/EdjeElectronics/OpenCV-Playing-Card-Detector
+
+    https://github.com/jlstuart125/playing-card-detection
+
+    https://github.com/Imperfect-AI/Poker
