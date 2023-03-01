@@ -1,29 +1,44 @@
-spades = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-hearts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-diamonds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-clubs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
 
+# 1 = 2, 2= 3, 3 = 4, 4 = 5, 5 = 6, 6 = 7, 7 = 8, 8 = 9, 9 = 10, 10 = J, 11 = Q, 12 = K, 13 = A
 
 # generates all of the cards in a deck
 def deck():
-    deck = []
-    for i in range(10):
-        deck.append(str(i+1)+"-S")
-        deck.append(str(i+1)+"-H")
-        deck.append(str(i+1)+"-D")
-        deck.append(str(i+1)+"-C")
-    for i in ["J", "Q", "K"]:
-        for j in ["S", "H", "D", "C"]:
-            deck.append(i+"-S")
-            deck.append(i+"-H")
-            deck.append(i+"-D")
-            deck.append(i+"-C")
-    return deck
+    return [i+1 for i in range(52)]
+    
 
+@staticmethod
+def get_suit(c: int) -> str:
+    if c < 14:
+        return "S"
+    elif c < 27:
+        return "H"
+    elif c < 40:
+        return "D"
+    else:
+        return "C"
 
-def get_suit(c: str) -> str:
-    return c[-1:]
-
-
+@staticmethod
 def are_suited(c1: str, c2: str) -> bool:
     return get_suit(c1) == get_suit(c2)
+
+@staticmethod
+def get_rank(c: int) -> int:
+    return c % 13
+
+@staticmethod
+def human_representation(c: int) -> str:
+    rank = get_rank(c)
+    suit = get_suit(c)
+    if rank == 0:
+        return "A" + suit
+    elif rank < 9:
+        return str(rank + 1) + suit
+    elif rank == 9:
+        return "T" + suit
+    elif rank == 10:
+        return "J" + suit
+    elif rank == 11:
+        return "Q" + suit
+    else:
+        return "K" + suit
+    

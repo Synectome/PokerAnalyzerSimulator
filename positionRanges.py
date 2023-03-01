@@ -1,3 +1,7 @@
+# Path: PokerAnalyzerSimulator\positionRanges.py
+import os
+
+RANGES_PATH = "PokerAnalyzerSimulator\Resources\Assets\Ranges\PreFlop"
 range = [["AAo", "AKs", "AQs", "AJs", "ATs", "A9s", "A8s", "A7s", "A6s", "A5s", "A4s", "A3s", "A2s"],
             ["AKo", "KKo", "KQs", "KJs", "KTs", "K9s", "K8s", "K7s", "K6s", "K5s", "K4s", "K3s", "K2s"],
             ["AQo", "KQo", "QQo", "QJs", "QTs", "Q9s", "Q8s", "Q7s", "Q6s", "Q5s", "Q4s", "Q3s", "Q2s"],
@@ -39,8 +43,15 @@ class PreFlopRange:
     def choose_range(self):
         # based on the position at the table, and the state
         pass
+    
+    @staticmethod
+    def load_range_csv():
+        full_ranges_path = os.path.join(os.getcwd(), RANGES_PATH)
+        files = []
+        for path in os.listdir(full_ranges_path):
+            if os.path.isfile(os.path.join(full_ranges_path, path)):
+                files.append(path)
+                # print(path)
+        
 
-    def load_range_csv(self):
-        pass
-
-
+PreFlopRange.load_range_csv()
