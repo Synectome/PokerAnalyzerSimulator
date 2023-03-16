@@ -2,21 +2,9 @@ import cardDeck
 import random
 import csv
 import datetime
+import Player
 
 
-class Player:
-
-    name : int # may not need a name
-    c1 : int
-    c2 : int
-    hand : list
-
-    def __init__(self, name):
-        self.name = name
-        self.c1 = None
-        self.c2 = None
-        # current best hand
-        self.hand = []
 
 
 def empiracle_shuffle_test_2csv(run_count: int):
