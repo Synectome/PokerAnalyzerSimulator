@@ -39,6 +39,21 @@ def human_representation(c: int) -> str:
         return "J" + suit
     elif rank == 11:
         return "Q" + suit
-    else:
+    elif rank == 12:
         return "K" + suit
-    
+    else:
+        raise ValueError("Invalid card : {}", c)
+
+@staticmethod
+def rank_plus_suit_to_card(rank, suit):
+    if suit == "S":
+        pass
+    elif suit == "H":
+        rank += 13
+    elif suit == "D":
+        rank += 26
+    elif suit == "C":
+        rank += 39
+    else:
+        raise ValueError("Invalid suit: {}", suit)
+    return rank

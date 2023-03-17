@@ -44,28 +44,44 @@ def is_straight(player_cards, table_cards):
             rankic[rank] = 1
     
 
-"""Returns true if there is a flush involving at least one card of the players hand.
-    Does not check for ranking of flush."""
+"""Returns True, [card1, card2, card3, card4, card5] for the best flush available,
+otherwise returns False, None"""
 def is_flush(player_cards, table_cards):
     suitic = {}
+    cardic = {}
     for card in player_cards:
         suit = cd.get_suit(card)
         if suit in suitic.keys():
             suitic[suit] += 1
+            cardic[suit].append(card)
         else:
             suitic[suit] = 1
+            cardic[suit] = [card]
     for card in table_cards:
         suit = cd.get_suit(card)
         if suit in suitic.keys():
             suitic[suit] += 1
+            cardic[suit].append(card)
         else:
             suitic[suit] = 1
+            cardic[suit] = [card]
     for suit, count in suitic.items():
-        if count >= 5 and (cd.get_suit(player_cards[0]) == suit or cd.get_suit(player_cards[1]) == suit):
-            return True
+        if count == 5 and (cd.get_suit(player_cards[0]) == suit or cd.get_suit(player_cards[1]) == suit):
+            return True, cardic[suit]
+        elif count > 5 :
+            highest = highest_ranking_5(cardic[suit])
+            if (cd.get_suit(player_cards[0]) in highest or cd.get_suit(player_cards[1]) in highest):
+                return True, highest
+            # if there are 5 cards in the flush on the table, all higher than the players card, we have a problem
     return False
 
-    
 
+"""Returns the highest ranking 5 cards regardless of suit"""
+def highest_ranking_5(cards):
+    cards_as_ranks = [cd.get_rank(card) for card in cards]
+    cards_as_ranks.sort()
+    while len(cards_as_ranks) > 5:
+        cards_as_ranks.pop(0)
+    return [cd.rank_plus_suit_to_card(rank, cd.get_suit(cards[0])) for rank in cards_as_ranks]
 
     
