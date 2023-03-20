@@ -1,6 +1,10 @@
 
 # 1 = 2, 2= 3, 3 = 4, 4 = 5, 5 = 6, 6 = 7, 7 = 8, 8 = 9, 9 = 10, 10 = J, 11 = Q, 12 = K, 13 = A
 
+########## cardDeck.py ##########
+#################################
+# i dont need these to be static methods now that this isn't a class...
+
 # generates all of the cards in a deck
 def deck():
     return [i+1 for i in range(52)]

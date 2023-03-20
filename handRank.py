@@ -49,29 +49,49 @@ def is_straight(player_cards, table_cards):
             rankic[rank] = 1
             cardic[rank] = [card]
     
-    ranked = rankic.keys().sort()
     # are there 5 sequential cards?
-    count = 0
     seq = []
     # max is number of sequential cards, 2,3,4,5,6,7,8 between 5 and 7, it will be 0 if less than 5
     max = 0
     # maxseq is the actual list of cards that are allowed. may be nested list if multiple of same rank.
     maxseq = []
-    for i in range(len(ranked) - 1):
-        seq.append()
-        if ranked[i] + 1 != ranked[i + 1]:
-            seq = [cardic[ranked[i]]]
-            count = 0
-            continue
-        if count >= 5:
-            max = count
+
+    ranked = rankic.keys().sort()
+    for i in range(len(ranked) - 1):        # For the index of each card in the sorted card ranks
+        if type(cardic[ranked[i]]) == list:
+            # are one of these in the players hand?
+            pass
+        seq.append(cardic[ranked[i]])       # add the current card to the sequence
+        if len(seq) >= len(maxseq):
             maxseq = [card for card in seq] # copy the list
+        if ranked[i] + 1 != ranked[i + 1]:  # if the next card is not sequential with the current card
+            seq = []                        # clear the sequence
+            continue                        # continue to the next card
+
     # if not, return False, None
     if max == 0:
         return False, None
     
+    # the straight that we will be returning, we guarantee that we have 5 or more sequential cards to check.
+    the_straight = []
+
     # if there are exactly 5 sequential cards, ensure that at least one of them is in the players hand
-    if max == 5 and 
+    one_is_in_hand = False
+    for element in maxseq:
+        # check if element is a list
+        if type(element) == list:
+            # check to see if one of the cards in the list is in the players hand
+            at_least_one = False
+            for card in element:
+                if card in player_cards:
+                    # preference to the card  in the players hand over the table card
+                    pass
+            if not at_least_one:
+                pass
+        else:
+            # then element is a card
+            the_straight.append(element)
+    # if max == 5
     # if not, return False, None
     
 
